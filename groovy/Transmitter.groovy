@@ -1,16 +1,49 @@
 import java.net.*
+import java.util.concurrent.*
 
 class Transmitter {
 
+  Queue          packets
+  DatagramSocket socket
+  InetAddress    group
+  int            port
+
+  static singleton = of()
+
+  Transmitter(packets,socket,group,port) {
+      this.packets = packets
+      this.socket  = socket
+      this.group   = group
+      this.port    = port
+  }
+
+  static of() {
+      new Transmitter(new SynchronousQueue(),new DatagramSocket(),Config.group,Config.port)
+  }
+
+  def loop() {
+      for (;;) {
+          DatagramPacket packet = packets.take()
+          transmit(packet)
+      }
+  }
+
+  def broadcast(message) {
+      packets.put(packet(message))
+  }
+
+  def tramsmit(DatagramPacket packet) {
+      socket.send(packet)
+  }
+
+  def packet(message) {
+      def buf = message.getBytes()
+      new DatagramPacket(buf, buf.length,group,port)
+  }
+
   static start() {
-      def socket = new DatagramSocket()
-      for (int i =0; i<1000; i++) {
-          def message = "Message $i"
-          def buf     = message.getBytes()
-          def packet  = new DatagramPacket(buf, buf.length,Config.group, 4446)
-          println "Transmit $message ${socket.localPort}"
-          socket.send(packet)
-          sleep(250)
+      Thread.start {
+          singleton.loop()
       }
   }
 
