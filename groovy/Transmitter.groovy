@@ -23,8 +23,7 @@ class Transmitter {
 
   def loop() {
       for (;;) {
-          DatagramPacket packet = packets.take()
-          transmit(packet)
+          transmit(packets.take())
       }
   }
 
@@ -32,7 +31,7 @@ class Transmitter {
       packets.put(packet(message))
   }
 
-  def tramsmit(DatagramPacket packet) {
+  def transmit(DatagramPacket packet) {
       socket.send(packet)
   }
 

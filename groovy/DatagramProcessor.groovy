@@ -1,7 +1,6 @@
 class DatagramProcessor {
 
   Queue          packets
-  DatagramSocket socket
   String         group
   int            port
 
@@ -23,7 +22,7 @@ class DatagramProcessor {
 
   def process(packet) {
       def received = new String(packet.getData())
-      println "Received $received ${socket.localPort} ${packet.address} ${packet.port}"
+      println "Received $received ${packet.address} ${packet.port}"
   }
 
   static start() {
