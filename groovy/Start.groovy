@@ -1,16 +1,12 @@
 import java.util.concurrent.*
 
 def queue = new ArrayBlockingQueue(100)
-Receiver.singleton = Receiver.of(queue)
+Transmitter.singleton       = Transmitter.of()
+Receiver.singleton          = Receiver.of(queue)
 DatagramProcessor.singleton = DatagramProcessor.of(queue)
+Heartbeat.singleton         = Heartbeat.of(Transmitter.singleton)
+
 Receiver.start()
 DatagramProcessor.start()
 Transmitter.start()
-
-Thread.start {
-  for (int i=0; i<100; i++) {
-     def message = "Transmit $i"
-     Transmitter.singleton.broadcast(message)
-     sleep(500)
-  }
-}
+Heartbeat.start()

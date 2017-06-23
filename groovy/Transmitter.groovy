@@ -8,7 +8,7 @@ class Transmitter {
   InetAddress    group
   int            port
 
-  static singleton = of()
+  static singleton
 
   Transmitter(packets,socket,group,port) {
       this.packets = packets
