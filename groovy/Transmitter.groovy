@@ -31,6 +31,10 @@ class Transmitter {
       packets.put(packet(message))
   }
 
+  def broadcastNow(message) {
+      socket.send(packet(message))
+  }
+
   def transmit(DatagramPacket packet) {
       socket.send(packet)
   }
