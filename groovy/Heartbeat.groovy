@@ -1,3 +1,5 @@
+import java.time.*
+
 class Heartbeat {
 
   Transmitter transmitter
@@ -24,7 +26,7 @@ class Heartbeat {
   }
 
   def message() {
-      "${new Date()}"
+      "Heartbeat ${Instant.now()}"
   }
 
   static def start() {
