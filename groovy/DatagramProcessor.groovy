@@ -1,17 +1,21 @@
-class DatagramProcessor {
+import java.net.*
 
-  Queue          packets
-  String         group
-  int            port
+class DatagramProcessor implements IDatagramProcessor {
+
+  Queue  packets
+  String group
+  int    port
+  List   processors
 
   static singleton
 
-  DatagramProcessor(packets) {
-      this.packets = packets
+  DatagramProcessor(packets,processors) {
+      this.packets    = packets
+      this.processors = processors
   }
 
-  static of(packets) {
-      new DatagramProcessor(packets)
+  static of(packets,processors) {
+      new DatagramProcessor(packets,processors)
   }
 
   def loop() {
@@ -20,9 +24,10 @@ class DatagramProcessor {
       }
   }
 
-  def process(packet) {
-      def received = new String(packet.getData())
-      println "Received $received ${packet.address} ${packet.port}"
+  def process(DatagramPacket packet) {
+      for (processor in processors) {
+          processor.process(packet)
+      }
   }
 
   static start() {
