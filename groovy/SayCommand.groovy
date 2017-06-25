@@ -1,7 +1,7 @@
 class SayCommand extends Command {
 
   SayCommand() {
-      super("say")
+      super('say')
   }
 
   static of() {
