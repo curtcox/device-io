@@ -2,6 +2,7 @@ import java.net.*
 
 class Census implements IDatagramProcessor {
 
+    def infos = [:]
     static singleton
 
     static of() {
@@ -9,7 +10,8 @@ class Census implements IDatagramProcessor {
     }
 
     def process(DatagramPacket packet) {
-        def received = new String(packet.getData())
-        println "Received $received ${packet.address} ${packet.port}"
+        def info = DeviceInfo.from(packet)
+        infos[info.address] = info
+        println "Census = $infos"
     }
 }
