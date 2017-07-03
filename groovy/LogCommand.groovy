@@ -1,11 +1,11 @@
-class PrintCommand extends Command {
+class LogCommand extends Command {
 
-  PrintCommand() {
-      super('print',false)
+  LogCommand() {
+      super('',false)
   }
 
   static of() {
-      new PrintCommand()
+      new LogCommand()
   }
 
   String perform(arg) {

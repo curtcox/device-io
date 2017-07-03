@@ -31,6 +31,10 @@ class Transmitter {
       packets.put(packet(message))
   }
 
+  def reply(packet,response) {
+      broadcast(response)
+  }
+
   def broadcastNow(message) {
       socket.send(packet(message))
   }

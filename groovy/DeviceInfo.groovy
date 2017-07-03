@@ -7,6 +7,6 @@ import java.time.*
    Instant       lastHeard
 
    static DeviceInfo from(DatagramPacket packet) {
-       new DeviceInfo(new DeviceAddress(packet.address,packet.port),Instant.now())
+       new DeviceInfo(DeviceAddress.from(packet),Instant.now())
    }
 }

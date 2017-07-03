@@ -1,14 +1,14 @@
 class SayCommand extends Command {
 
   SayCommand() {
-      super('say')
+      super('say',false)
   }
 
   static of() {
       new SayCommand()
   }
 
-  def perform(arg) {
+  String perform(arg) {
       "say $arg".execute()
   }
 

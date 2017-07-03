@@ -14,4 +14,8 @@ class Census implements IDatagramProcessor {
         infos[info.address] = info
         println "Census = $infos"
     }
+
+    String toString() {
+        infos.toString()
+    }
 }
