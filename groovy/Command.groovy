@@ -13,7 +13,7 @@ abstract class Command implements IDatagramProcessor {
   }
 
   Command(prefix,result) {
-      this(prefix,prefix,Transmitter.singleton)
+      this(prefix,result,Transmitter.singleton)
   }
 
   def process(DatagramPacket packet) {
